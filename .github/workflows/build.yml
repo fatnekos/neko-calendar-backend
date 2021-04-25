@@ -1,0 +1,24 @@
+name: Build
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Deno
+        uses: denoland/setup-deno@main
+        with:
+          deno-version: "1.9.2"
+
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Test
+        run: |
+          deno test --allow-net --allow-read --allow-write
